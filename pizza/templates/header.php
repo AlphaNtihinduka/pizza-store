@@ -9,6 +9,11 @@
   	.brand-text{
   		color: #cbb09c !important;
   	}
+    form{
+  		max-width: 460px;
+  		margin: 20px auto;
+  		padding: 20px;
+  	}
   </style>
 </head>
 <body class="grey lighten-4">
@@ -19,4 +24,4 @@
         <li><a href="#" class="btn brand z-depth-0">Add a Pizza</a></li>
       </ul>
     </div>
-  </nav>
+</nav>
