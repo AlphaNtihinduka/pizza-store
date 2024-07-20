@@ -39,7 +39,14 @@
                echo  htmlspecialchars($_POST['ingredients']);
             }           
         }
+
+
+        if(!array_filter($errors)) {
+        header('location: index.php');
     }
+    }
+   
+
 ?>
 
 <?php include('templates/header.php'); ?>
