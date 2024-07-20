@@ -20,8 +20,6 @@
         $pizzas[] = $pizza;
     }
     
-
-    print_r($pizzas);
     // free result from memory
     mysqli_free_result($result);
 
