@@ -15,10 +15,12 @@
     $result = mysqli_query($db_connect, $sql);
 
     // fetch data from database
-    $pizzas = array();
-    while($pizza = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        $pizzas[] = $pizza;
-    }
+
+    $pizzas = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    // $pizzas = array();
+    // while($pizza = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+    //     $pizzas[] = $pizza;
+    // }
     
     // free result from memory
     mysqli_free_result($result);
@@ -49,7 +51,7 @@
 							</ul>
 						</div>
 						<div class="card-action right-align">
-							<a class="brand-text" href="#">more info</a>
+							<a class="brand-text" href="details.php?id=<?php echo $pizza['id'] ?>">more info</a>
 						</div>
 					</div>
 				</div>
