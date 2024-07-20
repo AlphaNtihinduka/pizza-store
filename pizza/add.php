@@ -1,5 +1,11 @@
 <?php 
 
+    $db_connect = mysqli_connect("localhost", "alpha", "alpha123", "alpha_pizzas");
+
+    if(!$db_connect) {
+        echo 'connection error: ' . mysqli_connect_error();
+    }
+
     $email = $title = $ingredients = '';
     if(isset($_POST['submit'])) {
 
@@ -33,17 +39,34 @@
         } else {
 
             $ingredients = $_POST['ingredients'];
-            if(preg_match('~^([a-z0-9]+,)+$~i', $ingredients)) {
+            if(!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
                 $errors['ingredients'] = "Use comma for ingredients";
             } else {
                echo  htmlspecialchars($_POST['ingredients']);
             }           
         }
 
+        if(array_filter($errors)) {
+            echo "failed to add pizza";
+        
+        } else {
 
-        if(!array_filter($errors)) {
-        header('location: index.php');
-    }
+            // prevent mysql injection
+            $title = mysqli_real_escape_string($db_connect, $_POST['title']);
+            $email = mysqli_real_escape_string($db_connect, $_POST['email']);
+            $ingredients = mysqli_real_escape_string($db_connect, $_POST['$ingredients']);
+            
+            // create a query
+            $sql = "INSERT INTO pizzas(title, email, ingredients) VALUES('$title', '$email', '$ingredients')";
+            
+            // make a query and save
+            if(mysqli_query($db_connect, $sql)){
+                header('location: index.php');
+            } else {
+                echo 'query error: ' . mysqli_connect_error($db_connect);
+            }
+
+        }
     }
    
 
